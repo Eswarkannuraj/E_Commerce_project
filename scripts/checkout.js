@@ -1,35 +1,34 @@
-import { cart } from '../data/cart.js';
-import { products } from '../data/products.js';
+import {cart} from '../data/cart.js';
+import {products} from '../data/products.js';
 
-let cartSummaryHTML='';
+let cartSummaryHTML = '';
 
 cart.forEach((cartItem) => {
 
-  const productId=cartItem.productId;
-
+  const productId = cartItem.productId;
   let matchingProduct;
 
-  products.forEach((product)=>{
-    if(product.id=== productId){
-      matchingProduct=product;
+  products.forEach((product) => {
+    if (product.id === productId) {
+      matchingProduct = product;
     }
   });
-
-  cartSummaryHTML+= `
+  cartSummaryHTML +=
+    `
     <div class="cart-item-container">
       <div class="delivery-date">
         Delivery date: Tuesday, June 21
       </div>
 
       <div class="cart-item-details-grid">
-        <img class="product-image" src="images/products/${matchingProduct.image}">
+        <img class="product-image" src="${matchingProduct.image}">
 
         <div class="cart-item-details">
           <div class="product-name">
           ${matchingProduct.name}
           </div>
           <div class="product-price">
-            $${matchingProduct.priceCents/100}
+            $${matchingProduct.priceCents / 100}
           </div>
           <div class="product-quantity">
             <span>
@@ -87,4 +86,4 @@ cart.forEach((cartItem) => {
   `;
 });
 
-document.querySelector('.js-order-summary').innerHTML=cartSummaryHTML;
+document.querySelector('.js-order-summary').innerHTML = cartSummaryHTML;
