@@ -6,12 +6,6 @@ import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
 import { deliveryOptions ,getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 
-hello();
-
-const today = dayjs();
-const deliveryDate = today.add(7, 'days');
-console.log(deliveryDate.format('dddd,MMMM D'));
-
 
 export function renderorderSummary() {
   let cartSummaryHTML = '';
@@ -117,12 +111,13 @@ export function renderorderSummary() {
         const productId = link.dataset.productId;
         removeFromCart(productId);
         renderPaymentSummary();
-
-        const container = document.querySelector(`.js-cart-item-container-${productId}`);
-        container.remove();
-        updateCartQuantity();
+        
+        renderorderSummary();
+        // updateCartQuantity();
       });
     });
+
+    
 
   document.querySelectorAll('.js-delivery-option')
     .forEach((element) => {
@@ -195,4 +190,5 @@ export function renderorderSummary() {
     updateCartQuantity();
   };
 }
+
 
