@@ -52,6 +52,6 @@ export function renderPaymentSummary() {
       Place your order
     </button>
   `;
-  document.querySelector('.js-payment-summary').innerHTML=paymentSummaryHTMl
+  document.querySelector('.js-payment-summary').innerHTML=paymentSummaryHTMl;
 };
 
