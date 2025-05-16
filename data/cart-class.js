@@ -2,18 +2,18 @@ import { validDeliveryoptionId } from "./deliveryOptions.js";
 
 class Cart {
   cartItems;// = undefined;
-  localStorageKey;// = undefined;
+  #localStorageKey;// = undefined;
 
   constructor(localStorageKey) {
 
-    this.localStorageKey = localStorageKey;
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey;
+    this.#loadFromStorage();
 
   }
 
   //below is a function named loadfromstorage
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
     if (!this.cartItems) {
       this.cartItems = [{
@@ -30,7 +30,7 @@ class Cart {
 
   //below is a function named savetostorage
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   };
 
   addToCart(productId) {
@@ -113,7 +113,6 @@ class Cart {
 
 const cart = new Cart('cart-oop');
 const buisnessCart = new Cart('cart-buisness');
-
 
 console.log(cart)
 console.log(buisnessCart);
