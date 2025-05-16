@@ -139,7 +139,7 @@ export function renderorderSummary() {
     if (!cq) {
       return;
     }
-    if (cartQuantity) {
+    if (cartQuantity === 0) {
       cq.innerHTML = '';
     }
     else {
