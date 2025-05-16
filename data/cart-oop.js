@@ -19,7 +19,7 @@ function Cart(localStorageKey) {
           quantity: 1,
           deliveryOptionId: '2'
         }];
-      }
+      };
     },
 
     //below is a function named savetostorage
