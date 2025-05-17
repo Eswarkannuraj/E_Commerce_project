@@ -58,6 +58,43 @@ class Clothing extends Product{
   }
 };
 
+// date is a inbuilt class 
+// const date = new Date();
+// console.log(date.toLocaleTimeString());
+
+/*
+console.log(this);
+
+const obj2 = {
+  a:2,
+  b:this.a,
+}
+
+function logThis(){
+  console.log(this);
+}
+logThis();
+logThis.call('hello');
+
+
+
+// basically "this" keeps/holds the value that it had outside the function
+this
+const obj3 = {
+  method(){
+    console.log(this);
+  }
+}
+obj3.method();
+
+
+console.log(this);
+[1,2,3].forEach(()=>{
+  console.log(this);
+});
+*/
+
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
