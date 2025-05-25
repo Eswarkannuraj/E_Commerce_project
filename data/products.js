@@ -11,7 +11,7 @@ export function getProduct(productId){
     return matchingProduct;
 }
 
-class Product{
+export class Product{
   id;
   image;
   name;
@@ -41,7 +41,7 @@ class Product{
 
 // using inheritance to run/use parent class code along with addtional property of products
 
-class Clothing extends Product{
+export class Clothing extends Product{
   sizeChartLink;
 
   constructor(productDetails){
@@ -50,11 +50,7 @@ class Clothing extends Product{
   }
 
   extraInfoHTML(){
-    return `
-    <a href="${this.sizeChartLink}" target = "_blank">
-    size chart
-    </a>
-    `;
+    return `<a href="${this.sizeChartLink}" target="_blank">size chart</a>`;
   }
 };
 
@@ -96,7 +92,7 @@ console.log(this);
 */
 
 
-class Appliance extends Product{
+export class Appliance extends Product{
 
   instructionsLink;
   warrantyLink;
@@ -109,10 +105,10 @@ class Appliance extends Product{
 
   extraInfoHTML(){
     return `
-    <a href="${this.instructionsLink}" target = "_blank">
+    <a href="${this.instructionsLink}" target="_blank">
     Instructions
     </a>
-    <a href="${this.warrantyLink}" target = "_blank">
+    <a href="${this.warrantyLink}" target="_blank">
     Warranty
     </a>
     `;

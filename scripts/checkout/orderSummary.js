@@ -1,4 +1,4 @@
-import { cart, removeFromCart, calculateCartQuantity, updateQuantity, updateDeliveryOption } from '../../data/cart.js';
+import { cart } from '../../data/cart-class.js';
 import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js';
@@ -10,7 +10,7 @@ import { renderCheckoutHeader } from './checkoutHeader.js';
 export function renderorderSummary() {
   let cartSummaryHTML = '';
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
 
     const productId = cartItem.productId;
     const matchingProduct = getProduct(productId);
@@ -108,7 +108,7 @@ export function renderorderSummary() {
     .forEach((link) => {
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
-        removeFromCart(productId);
+        cart.removeFromCart(productId);
         renderCheckoutHeader();
         renderPaymentSummary();
         renderorderSummary();
@@ -126,14 +126,14 @@ export function renderorderSummary() {
         // or use general way to access data attribute
         //const productId=element.dataset.productId;
         // const deliveryOptionId=element.dataset.deliveryOptionId
-        updateDeliveryOption(productId, deliveryOptionId);
+        cart.updateDeliveryOption(productId, deliveryOptionId);
         renderorderSummary();
         renderPaymentSummary();
       })
     })
 
   function updateCartQuantity() {
-    const cartQuantity = calculateCartQuantity();
+    const cartQuantity = cart.calculateCartQuantity();
 
     const cq = document.querySelector('.js-return-to-home-link')
     if (!cq) {

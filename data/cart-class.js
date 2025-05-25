@@ -56,7 +56,7 @@ class Cart {
 
   removeFromCart(productId) {
     const newCart = [];
-    this.cartItemst.forEach((cartItem) => {
+    this.cartItems.forEach((cartItem) => {
       if (cartItem.productId !== productId) {
         newCart.push(cartItem);
       }
@@ -90,7 +90,7 @@ class Cart {
   calculateCartQuantity() {
     let cartQuantity = 0;
 
-    this.cartItems.forEach((cartItem) => {
+    cart.cartItems.forEach((cartItem) => {
       cartQuantity += cartItem.quantity;
     });
     return cartQuantity;
@@ -111,8 +111,12 @@ class Cart {
 
 }
 
-const cart = new Cart('cart-oop');
+//below is an example of creating 2 cart using the class named cart
+
+export const cart = new Cart('cart-oop');
 const buisnessCart = new Cart('cart-buisness');
+
+// to check if it shows 2 different carts
 
 console.log(cart)
 console.log(buisnessCart);
