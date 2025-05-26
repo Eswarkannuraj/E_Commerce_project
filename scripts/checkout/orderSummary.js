@@ -183,7 +183,7 @@ export function renderorderSummary() {
       alert('quantity must be between 0 and 1000');
       return;
     }
-    updateQuantity(productId, newQuantity);
+    cart.updateQuantity(productId, newQuantity);
 
     const container = document.querySelector(`.js-cart-item-container-${productId}`);
     container.classList.remove('is-editing-quantity');
