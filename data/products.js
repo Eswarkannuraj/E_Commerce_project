@@ -134,6 +134,9 @@ export function loadProducts(fun){
     console.log('load products');
     fun();
   });
+  
+  // to get the products data list from the url(backend) instead of writing all productsdata in code
+
   xhr.open('GET'/*type of request*/,'https:supersimplebackend.dev/products'/*url*/);
   xhr.send();
 }
