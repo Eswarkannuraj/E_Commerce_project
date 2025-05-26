@@ -118,6 +118,6 @@ const buisnessCart = new Cart('cart-buisness');
 
 // to check if it shows 2 different carts
 
-console.log(cart)
-console.log(buisnessCart);
-console.log(buisnessCart instanceof Cart)
+// console.log(cart)
+// console.log(buisnessCart);
+// console.log(buisnessCart instanceof Cart)
