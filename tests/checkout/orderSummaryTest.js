@@ -1,11 +1,22 @@
 import { renderorderSummary } from '../../scripts/checkout/orderSummary.js';
-import {  cart } from '../../data/cart-class.js';
+import { cart } from '../../data/cart-class.js';
+import { loadProducts } from '../../data/products.js';
 
 
 describe('test suite: renderOrderSummary', () => {
 
   const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
   const productId2 = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
+
+  // "done" prevents the execution to go to next line before completion of this set of code
+
+  // this is  to make all to wait untill backend code is finished 
+  beforeAll((done) => {
+    loadProducts(()=>{
+      done();// done() let's us control when to go to next step
+    });
+  });
+
 
   beforeEach(() => {
     spyOn(localStorage, 'setItem');
@@ -15,15 +26,15 @@ describe('test suite: renderOrderSummary', () => {
       <div class="js-payment-summary"></div>
       <div class="js-checkout-header"></div>`;
 
-      cart.cartItems = [{
-        productId: productId1,
-        quantity: 2,
-        deliveryOptionId: '1'
-      }, {
-        productId: productId2,
-        quantity: 1,
-        deliveryOptionId: '2'
-      }];
+    cart.cartItems = [{
+      productId: productId1,
+      quantity: 2,
+      deliveryOptionId: '1'
+    }, {
+      productId: productId2,
+      quantity: 1,
+      deliveryOptionId: '2'
+    }];
 
     renderorderSummary();
   });
@@ -88,10 +99,10 @@ describe('test suite: renderOrderSummary', () => {
     expect(cart.cartItems[0].productId).toEqual(productId1);
     expect(cart.cartItems[0].deliveryOptionId).toEqual('3');
 
-    const a=document.querySelector('.js-payment-summary-shipping');
+    const a = document.querySelector('.js-payment-summary-shipping');
     expect((a).innerText).toEqual('$14.98');
 
-    const b=document.querySelector('.js-payment-summary-total');
+    const b = document.querySelector('.js-payment-summary-total');
     expect((b).innerText).toEqual('$63.50');
   });
 });
