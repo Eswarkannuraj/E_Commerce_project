@@ -115,7 +115,7 @@ export class Appliance extends Product {
   }
 }
 
-//loading products from backend
+//loading products from backend using fetch()-> which uses promises
 export let products = [];
 
 export function loadProductsFetch() {
@@ -142,6 +142,7 @@ loadProductsFetch().then(()=>{
   console.log('nextstep')
 });
 
+//loading products from backend using XMLhttpsrequest -> which use callbacks
 
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
