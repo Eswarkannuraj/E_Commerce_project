@@ -4,21 +4,26 @@ import { renderCheckoutHeader } from './checkout/checkoutHeader.js'
 // import'../data/cart-class.js';
 // import'../data/car.js';
 // import '../data/backend-practice.js'
-import { loadProducts } from '../data/products.js';
+import { loadProductsFetch } from '../data/products.js';
 import { loadCart } from '../data/cart.js';
 
 
+// promise.all runs both "promise" at same time and moves to then if both are completed which is done by "resolve"
 Promise.all([
-  // runs both "promise" at same time and moves to then if both are completed which is done by "resolve"
+  
+  loadProductsFetch(),
+  // instead of below promise ,we use a fetch function (loadProductsFetch) that returns a promise 
 
+  /*
   new Promise((resolve) => {
     loadProducts(() => { 
       resolve('value1'); 
     });
-  }),
+  }),*/
+
   new Promise((resolve) => {
     loadCart(() => { 
-      resolve('value2'); 
+      resolve(); 
     });
   })
 ]).then((values) => {

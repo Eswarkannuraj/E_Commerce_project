@@ -1,24 +1,24 @@
-import {formatCurrency} from '../scripts/utils/money.js'
+import { formatCurrency } from '../scripts/utils/money.js'
 
-export function getProduct(productId){
+export function getProduct(productId) {
   let matchingProduct;
 
-    products.forEach((product) => {
-      if (product.id === productId) {
-        matchingProduct = product;
-      }
-    });
-    return matchingProduct;
+  products.forEach((product) => {
+    if (product.id === productId) {
+      matchingProduct = product;
+    }
+  });
+  return matchingProduct;
 }
 
-export class Product{
+export class Product {
   id;
   image;
   name;
   rating;
   priceCents;
 
-  constructor(productDetails){
+  constructor(productDetails) {
     this.id = productDetails.id;
     this.image = productDetails.image;
     this.name = productDetails.name;
@@ -26,30 +26,30 @@ export class Product{
     this.priceCents = productDetails.priceCents;
   }
 
-  getStarsUrl(){
+  getStarsUrl() {
     return `images/ratings/rating-${this.rating.stars * 10}.png`;
   }
 
-  getPrice(){
+  getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
 
-  extraInfoHTML(){
+  extraInfoHTML() {
     return '';
   }
 }
 
 // using inheritance to run/use parent class code along with addtional property of products
 
-export class Clothing extends Product{
+export class Clothing extends Product {
   sizeChartLink;
 
-  constructor(productDetails){
+  constructor(productDetails) {
     super(productDetails);
     this.sizeChartLink = productDetails.sizeChartLink;
   }
 
-  extraInfoHTML(){
+  extraInfoHTML() {
     return `<a href="${this.sizeChartLink}" target="_blank">size chart</a>`;
   }
 };
@@ -92,18 +92,18 @@ console.log(this);
 */
 
 
-export class Appliance extends Product{
+export class Appliance extends Product {
 
   instructionsLink;
   warrantyLink;
 
-  constructor(productDetails){
+  constructor(productDetails) {
     super(productDetails);
     this.instructionsLink = productDetails.instructionsLink;
     this.warrantyLink = productDetails.warrantyLink;
   }
 
-  extraInfoHTML(){
+  extraInfoHTML() {
     return `
     <a href="${this.instructionsLink}" target="_blank">
     Instructions
@@ -118,14 +118,39 @@ export class Appliance extends Product{
 //loading products from backend
 export let products = [];
 
-export function loadProducts(fun){
+export function loadProductsFetch() {
+  const promise = fetch('https:supersimplebackend.dev/products')
+  .then((response) => {
+    return response.json()
+  }).then((productsData) => {
+    products = productsData.map((productDetails) => {
+      if (productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      } else if (productDetails.type === 'appliance') {
+        return new Appliance(productDetails);
+      }
+      return new Product(productDetails);
+    });
+
+    console.log('load products');
+  });
+  return promise;
+}
+
+/*
+loadProductsFetch().then(()=>{
+  console.log('nextstep')
+});
+
+
+export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 
-  xhr.addEventListener('load',()=>{
-    products = JSON.parse(xhr.response).map((productDetails)=>{
-      if(productDetails.type === 'clothing'){
+  xhr.addEventListener('load', () => {
+    products = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
-      }else if(productDetails.type === 'appliance'){
+      } else if (productDetails.type === 'appliance') {
         return new Appliance(productDetails);
       }
       return new Product(productDetails);
@@ -134,12 +159,13 @@ export function loadProducts(fun){
     console.log('load products');
     fun();
   });
-  
+
   // to get the products data list from the url(backend) instead of writing all productsdata in code
 
-  xhr.open('GET'/*type of request*/,'https:supersimplebackend.dev/products'/*url*/);
+  xhr.open('GET', 'https:supersimplebackend.dev/products');
   xhr.send();
 }
+*/
 
 /*
 export const products = [
