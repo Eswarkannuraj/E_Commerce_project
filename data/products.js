@@ -141,6 +141,7 @@ export function loadProductsFetch() {
 loadProductsFetch().then(()=>{
   console.log('nextstep')
 });
+*/
 
 //loading products from backend using XMLhttpsrequest -> which use callbacks
 
@@ -166,7 +167,7 @@ export function loadProducts(fun) {
   xhr.open('GET', 'https:supersimplebackend.dev/products');
   xhr.send();
 }
-*/
+
 
 /*
 export const products = [
