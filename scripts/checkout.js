@@ -8,18 +8,30 @@ import { loadCart } from '../data/cart.js';
 // import '../data/backend-practice.js'
 
 
+async function loadPage(){
+
+  await loadProductsFetch()
+
+  const value = await new Promise((resolve) => {
+    loadCart(() => { 
+      resolve('value3'); 
+    });
+  })
+
+  renderCheckoutHeader();
+  renderorderSummary();
+  renderPaymentSummary();
+
+}
+loadPage();
+
+
 // promise.all runs both "promise" at same time and moves to then if both are completed which is done by "resolve"
+/*
 Promise.all([
   
   loadProductsFetch(),
-  // instead of below promise ,we use a fetch function (loadProductsFetch) that returns a promise 
-
-  /*
-  new Promise((resolve) => {
-    loadProducts(() => { 
-      resolve('value1'); 
-    });
-  }),*/
+  we use a fetch function (loadProductsFetch) that returns a promise 
 
   new Promise((resolve) => {
     loadCart(() => { 
@@ -32,6 +44,8 @@ Promise.all([
   renderorderSummary();
   renderPaymentSummary();
 });
+
+*/
 
 /*
 new Promise((resolve) => {
