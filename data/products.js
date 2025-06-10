@@ -119,7 +119,7 @@ export class Appliance extends Product {
 export let products = [];
 
 export function loadProductsFetch() {
-  const promise = fetch('https:supersimplebackend.dev/products')
+  const promise = fetch('https://supersimplebackend.dev/products')
   .then((response) => {
     return response.json()
   }).then((productsData) => {
@@ -133,15 +133,11 @@ export function loadProductsFetch() {
     });
 
     console.log('load products');
+  }).catch((error)=>{
+    console.log('unexpected error.please try later')
   });
   return promise;
 }
-
-/*
-loadProductsFetch().then(()=>{
-  console.log('nextstep')
-});
-*/
 
 //loading products from backend using XMLhttpsrequest -> which use callbacks
 
@@ -162,11 +158,16 @@ export function loadProducts(fun) {
     fun();
   });
 
+  xhr.addEventListener('error',(error) => {
+    console.log('unexpected error.please try later');
+  })
+
   // to get the products data list from the url(backend) instead of writing all productsdata in code
 
-  xhr.open('GET', 'https:supersimplebackend.dev/products');
+  xhr.open('GET', 'https://supersimplebackend.dev/products');
   xhr.send();
 }
+
 
 
 /*
