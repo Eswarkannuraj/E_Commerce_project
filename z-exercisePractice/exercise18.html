@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head></head>
+
+<body>
+  <script>
+
+    //18A - using XMLHttpRequest
+    console.time('request')
+    const request = new XMLHttpRequest();
+    request.addEventListener('load', () => {
+      console.log(request.response);
+      console.timeEnd('request')
+    });
+
+    request.open('GET', 'https://supersimplebackend.dev/greeting');
+    request.send();
+
+
+    // 18B - using Fetch().then(()=>{}) 
+    console.time('fetchRequest')
+    const fetchRequest = fetch('https://supersimplebackend.dev/greeting').then((response) => {
+      return response.text();
+    }).then((text) => {
+      console.log(text);
+      console.timeEnd('fetchRequest');
+    })
+
+
+    //18C - fetch() using Async/await with try/catch 
+    async function req() {
+      console.time('fetcherRequest');
+      try {
+        const fetcherRequest = await fetch('https://supersimplebackend.dev/greeting');
+        const text1 = await fetcherRequest.text();
+        console.log(text1);
+        console.timeEnd('fetcherRequest');
+
+      } catch (error) {
+        console.log('unexpected error.try later')
+      }
+    };
+
+    req();
+
+    //18D - async/await with a "POST" request
+    async function response() {
+      console.time('resp');
+      const resp = await fetch('https://supersimplebackend.dev/greeting', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/JSON' },
+        body: JSON.stringify({
+          name: 'Eswar.K'
+        })
+      });
+      const data = await resp.text();
+      console.log(data);
+      console.timeEnd('resp');
+    }
+
+    response();
+
+
+    // 18E,F- Error coz of CORS(cross origin resource Sharing)
+    async function cors() {
+
+      try {
+        const amazon = await fetch('https://myntra.com', {
+          method: 'GET',
+        })
+        const res = await amazon.text();
+        console.log(res);
+
+      } catch (error) {
+        console.log('CORS error. Your Request was blocked by Backend')
+      }
+    }
+    cors();
+
+
+    //18G - to manually cause error
+    async function post() {
+
+      try {
+
+        const noBody = await fetch('https://supersimplebackend.dev/greeting', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/JSON' }
+        });
+        if(noBody.status >= 400){
+          throw response;
+        }
+        const responseBody = await noBody.text();
+        console.log(responseBody);
+
+      }catch(error){
+        if(error.status === 400){
+          const errorData = await error.json();
+          console.log(errorData);
+        }else{
+          console.log('Network Error.please try again later')
+        }
+      }
+    }
+
+    post();
+
+
+  </script>
+</body>
+
+</html>
