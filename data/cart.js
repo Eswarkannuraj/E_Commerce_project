@@ -99,6 +99,7 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   saveToStorage();
 }
 
+//-> this loadcart() is replaced with loadcartfetch. it is thhere juat for no sake
 export function loadCart(fun){
   const xhr = new XMLHttpRequest();
 
@@ -107,6 +108,16 @@ export function loadCart(fun){
     console.log(xhr.response);
     fun();
   });
-  xhr.open('GET'/*type of request*/,'https:supersimplebackend.dev/cart'/*url*/);
+  xhr.open('GET'/*type of request*/,'https://supersimplebackend.dev/cart'
+    /*url*/);
   xhr.send();
+}
+
+// -> here ends the unwanted/unused loadcart() function
+
+export async function loadCartFetch() {
+  const response = await fetch('https://supersimplebackend.dev/cart');
+  const text = await response.text();
+  console.log(text);
+  return text;
 }

@@ -11,10 +11,17 @@ describe('test suite: renderOrderSummary', () => {
   // "done" prevents the execution to go to next line before completion of this set of code
 
   // this is  to make all to wait untill backend code is finished 
+  /*
   beforeAll((done) => {
     loadProductsFetch().then(()=>{
       done();
     });
+  });
+  */
+
+  // previously done was used now async/await
+  beforeAll(async()=>{
+    await loadProductsFetch();
   });
 
 
