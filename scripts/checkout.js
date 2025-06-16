@@ -1,7 +1,7 @@
 import { renderorderSummary } from './checkout/orderSummary.js';
 import { renderPaymentSummary } from './checkout/paymentSummary.js';
 import { renderCheckoutHeader } from './checkout/checkoutHeader.js'
-import { loadProductsFetch } from '../data/products.js';
+import { loadProductsFetch, products } from '../data/products.js';
 import { loadCart, loadCartFetch } from '../data/cart.js';
 // import'../data/cart-class.js';
 // import'../data/car.js';
@@ -19,7 +19,9 @@ async function loadPage() {
       loadProductsFetch(),
 
       loadCartFetch()
+
     ]);
+    console.log('products loaded' , products)
 
   } catch (error) {
     console.log('unexpected error.please try later')

@@ -71,6 +71,7 @@ export function renderPaymentSummary() {
 
         //response.json() is also a promise,so we can use await 
         const order = await response.json();
+        console.log(order);
         addOrder(order);
 
       } catch (error) {
