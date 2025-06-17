@@ -21,7 +21,6 @@ async function loadPage() {
       loadCartFetch()
 
     ]);
-    console.log('products loaded' , products)
 
   } catch (error) {
     console.log('unexpected error.please try later')

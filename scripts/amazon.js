@@ -1,11 +1,16 @@
-updateCartQuantity();
-
 import { cart } from '../data/cart-class.js';
 
-import { products, loadProducts } from '../data/products.js';
+import { products, loadProducts, loadProductsFetch } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
-loadProducts(renderProductsGrid);
+updateCartQuantity();
+
+async function loadAmazonPage(){
+  await loadProductsFetch();
+  renderProductsGrid();
+}
+
+loadAmazonPage();
 
 function renderProductsGrid() {
 
@@ -84,7 +89,7 @@ function renderProductsGrid() {
 }
 
 function updateCartQuantity() {
-  const cartQuantity = cart.calculateCartQuantity();
+  const cartQuantity = cart.calculateCartQuantity();//calculateCartQuantity() from the cart-class.js
 
   document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
 };
