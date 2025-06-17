@@ -1,7 +1,6 @@
 import { cart } from '../data/cart-class.js';
 
-import { products, loadProducts, loadProductsFetch } from '../data/products.js';
-import { formatCurrency } from './utils/money.js';
+import { products, loadProductsFetch } from '../data/products.js';
 
 updateCartQuantity();
 
@@ -25,7 +24,8 @@ function renderProductsGrid() {
   let filteredProducts = products;
   if(searchFilter){
     filteredProducts = products.filter((product)=>{
-      return product.name.includes(searchFilter)
+      return product.name.toLowerCase().includes(searchFilter) ||
+      product.keywords.includes(searchFilter);
     })
   }
     filteredProducts.forEach((products) => {
@@ -104,7 +104,7 @@ function renderProductsGrid() {
 
 document.querySelector('.js-search-button').addEventListener('click', () => {
   //to save the value from input tag(ie...js-search-bar)
-  const searchValue = document.querySelector('.js-search-bar').value;
+  const searchValue = document.querySelector('.js-search-bar').value.toLowerCase();
   //to redirect to origin page with the saved value
   window.location.href = `amazon.html?search=${searchValue}`;
 })
