@@ -5,7 +5,7 @@ import { formatCurrency } from './utils/money.js';
 
 updateCartQuantity();
 
-async function loadAmazonPage(){
+async function loadAmazonPage() {
   await loadProductsFetch();
   renderProductsGrid();
 }
@@ -15,7 +15,21 @@ loadAmazonPage();
 function renderProductsGrid() {
 
   let productsHTML = '';
-  products.forEach((products) => {
+
+  const url = new URL(window.location.href);
+  const searchFilter = url.searchParams.get('search');
+
+  // If a search exists in the URL parameters,
+  // filter the products that match the search.
+
+  let filteredProducts = products;
+  if(searchFilter){
+    filteredProducts = products.filter((product)=>{
+      return product.name.includes(searchFilter)
+    })
+  }
+    filteredProducts.forEach((products) => {
+
     productsHTML += ` 
     <div class="product-container">
       <div class="product-image-container">
@@ -72,21 +86,28 @@ function renderProductsGrid() {
 
   });
   console.log(productsHTML);
-  
+
   document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
   document.querySelectorAll('.js-add-to-cart')
-  .forEach((button) => {
-    button.addEventListener('click', () => {
-      const productId = button.dataset.productId;
-      
-      cart.addToCart(productId);
-      
-      updateCartQuantity();
-      
+    .forEach((button) => {
+      button.addEventListener('click', () => {
+        const productId = button.dataset.productId;
+
+        cart.addToCart(productId);
+
+        updateCartQuantity();
+
+      });
     });
-  });
 }
+
+document.querySelector('.js-search-button').addEventListener('click', () => {
+  //to save the value from input tag(ie...js-search-bar)
+  const searchValue = document.querySelector('.js-search-bar').value;
+  //to redirect to origin page with the saved value
+  window.location.href = `amazon.html?search=${searchValue}`;
+})
 
 function updateCartQuantity() {
   const cartQuantity = cart.calculateCartQuantity();//calculateCartQuantity() from the cart-class.js

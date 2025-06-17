@@ -3,7 +3,7 @@ import { orders } from '../data/orders.js'
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js'
 import { formatCurrency } from './utils/money.js'
 import {cart} from '../data/cart-class.js'
-import { addToCart } from '../data/cart.js';
+import { addToCart, calculateCartQuantity } from '../data/cart.js';
 
 async function renderloadPage() {
   await loadProductsFetch();
@@ -63,7 +63,7 @@ async function renderloadPage() {
             <div class="product-quantity">
               Quantity: ${productDetails.quantity}
             </div>
-            <button class="buy-again-button button-primary js-buy-again-button" data-product-id = ${product.id}>
+            <button class="buy-again-button button-primary js-buy-again-button" data-product-id = "${product.id}">
               <img class="buy-again-icon" src="images/icons/buy-again.png">
               <span class="buy-again-message ">Buy it again</span>
             </button>
@@ -83,11 +83,14 @@ async function renderloadPage() {
   }
   document.querySelector('.js-orders-grid').innerHTML = ordersHTML;
 
+  updateCartQuantity();
+  
   // to make buy-it-again button interactive
   document.querySelectorAll('.js-buy-again-button').forEach((button) => {
     button.addEventListener('click', () => {
       const productId = button.dataset.productId;
       cart.addToCart(productId);
+      updateCartQuantity();
 
       button.innerHTML = 'Added';
       setTimeout(()=>{
@@ -98,6 +101,12 @@ async function renderloadPage() {
       },1000);
     })
   })
+
+  function updateCartQuantity() {
+    const cartQuantity = cart.calculateCartQuantity();//calculateCartQuantity() from the cart-class.js
+  
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+  };
 };
 
 renderloadPage();

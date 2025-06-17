@@ -1,7 +1,7 @@
 import { getProduct, loadProductsFetch } from '../data/products.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { getOrder } from '../data/orders.js';
-
+import {cart} from '../data/cart-class.js';
 
 async function renderTrackPage() {
 
@@ -33,11 +33,11 @@ async function renderTrackPage() {
 
   function shippingStatus() {
 
-    if (trackPercent< 50 ) {
+    if (trackPercent < 50) {
       document.querySelector('.js-progress-label-1').classList.add('current-status');
-    }else if(trackPercent > 50 && trackPercent <99){
+    } else if (trackPercent > 50 && trackPercent < 99) {
       document.querySelector('.js-progress-label-2').classList.add('current-status');
-    }else{
+    } else {
       document.querySelector('.js-progress-label-3').classList.add('current-status');
     }
   }
@@ -81,8 +81,14 @@ async function renderTrackPage() {
       </div>
     `;
   document.querySelector('.js-main').innerHTML = trackingPage;
-
+  updateCartQuantity();
   shippingStatus();
+
+  function updateCartQuantity() {
+    const cartQuantity = cart.calculateCartQuantity();//calculateCartQuantity() from the cart-class.js
+  
+    document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+  };
 }
 renderTrackPage();
 
