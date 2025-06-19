@@ -77,7 +77,8 @@ export function renderPaymentSummary() {
       } catch (error) {
         console.log('unexpected error.try later again')
       }
-
+      cart.resetCart();
+      console.log('Cart after reset:', cart.cartItems);
       window.location.href = 'orders.html'
     });
 };

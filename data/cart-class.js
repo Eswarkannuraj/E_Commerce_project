@@ -109,6 +109,11 @@ class Cart {
     this.saveToStorage();
   }
 
+  resetCart(){
+    this.cart = [];
+    this.saveToStorage();
+  }
+
 }
 
 //below is an example of creating 2 cart using the class named cart
