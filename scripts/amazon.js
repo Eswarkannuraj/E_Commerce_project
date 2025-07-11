@@ -106,7 +106,7 @@ document.querySelector('.js-search-button').addEventListener('click', () => {
   //to save the value from input tag(ie...js-search-bar)
   const searchValue = document.querySelector('.js-search-bar').value.toLowerCase();
   //to redirect to origin page with the saved value
-  window.location.href = `amazon.html?search=${searchValue}`;
+  window.location.href = `index.html?search=${searchValue}`;
 })
 
 function updateCartQuantity() {
